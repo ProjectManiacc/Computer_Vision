@@ -4,6 +4,8 @@ from pathlib import Path
 from ultralytics import YOLO
 from typing import List, Dict, Any
 import numpy as np
+from capture_camera import capture_and_process_frames
+from detection import process_detections
 
 data_path = Path('dataset/data.yaml')
 curr_dir = Path.cwd()
@@ -59,31 +61,14 @@ def test_model_on_multiple_images(images_dir: Path, output_dir: Path) -> list[di
     return detections
 
 
-def process_detections(model: YOLO, results: List, image: np.ndarray, image_name: str) -> List[Dict[str, Any]]:
-    detections = []
-    for result in results:
-        for box in result.boxes:
-            x1, y1, x2, y2 = map(int, box.xyxy[0].tolist())
-            label = model.names[int(box.cls)]
-            confidence = float(box.conf)
-            detections.append({
-                'image': image_name,
-                'box': (x1, y1, x2, y2),
-                'label': label,
-                'confidence': confidence
-            })
-            cv2.rectangle(image, (x1, y1), (x2, y2), (0, 255, 0), 2)
-            cv2.putText(image, f'{label} {confidence:.2f}', (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0),
-                        2)
-    return detections
-
-
 if __name__ == '__main__':
     # model_training = train_model(data_path)
     # model_metrics = evaluate_model(data_path)
     test_results_single = test_model_on_single_image(test_image_path, output_image_path)
     print(test_results_single)
 
-    test_results = test_model_on_multiple_images(test_images_dir, output_images_dir)
-    for detection in test_results:
-        print(detection)
+    # test_results = test_model_on_multiple_images(test_images_dir, output_images_dir)
+    # for detection in test_results:
+    #     print(detection)
+
+    capture_and_process_frames(YOLO(model=Path(curr_dir, 'yolov9e.pt')))
