@@ -71,4 +71,4 @@ if __name__ == '__main__':
     # for detection in test_results:
     #     print(detection)
 
-    capture_and_process_frames(YOLO(model=Path(curr_dir, 'yolov9e.pt')))
+    capture_and_process_frames(YOLO(model=Path(curr_dir, trained_model_path)))
