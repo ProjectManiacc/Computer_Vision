@@ -37,8 +37,6 @@ To test the model on a single image or multiple images, use the `test_model_on_s
 
 ### Running the Camera Capture Script
 
-To capture and process frames from the camera in real-time, run the `capture_camera.py` script. This script uses the `process_detections` function from `detection_utils.py` to process the detections.
+To capture and process frames from the camera in real-time, use the `capture_and_process_frames` function. This script uses the `process_detections` function from `detection_utils.py` to process the detections.
 
-You can run the camera capture script by executing the following command:
-```sh
-python capture_camera.py
+You can run the camera capture script by uncommenting the relevant lines in the `if __name__ == '__main__':`
