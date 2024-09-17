@@ -6,6 +6,7 @@ from typing import List, Dict, Any
 import numpy as np
 from capture_camera import capture_and_process_frames
 from detection import process_detections
+from connection import send_data_to_server
 
 data_path = Path('dataset/data.yaml')
 curr_dir = Path.cwd()
@@ -72,3 +73,9 @@ if __name__ == '__main__':
     #     print(detection)
 
     capture_and_process_frames(YOLO(model=Path(curr_dir, trained_model_path)))
+
+    server_ip = '127.0.0.1'
+    server_port = 65432
+    data_to_send = {direction: "left"}
+
+    send_data_to_server(data_to_send, server_ip, server_port)
