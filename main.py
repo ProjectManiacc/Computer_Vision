@@ -61,17 +61,7 @@ def test_model_on_multiple_images(images_dir: Path, output_dir: Path) -> list[di
 
     return detections
 
-def process_and_send_results(test_results: list[dict[str, Any]], server_ip, server_port):
-    direction_map = {
-        'Left Arrow': "left", 
-        'Right Arrow': "right", 
-        'Up Arrow': "forward"
-    }
-    for listOfDict in test_results:
-        for key, value in listOfDict.items():
-            if key in direction_map:
-                direction = direction_map[key]
-                send_data_to_server({"direction": direction}, server_ip, server_port)
+
         
 
 
@@ -87,6 +77,4 @@ if __name__ == '__main__':
 
     capture_and_process_frames(YOLO(model=Path(curr_dir, trained_model_path)))
 
-    server_ip = '127.0.0.1'
-    server_port = 65432
-    process_and_send_results(test_results_single, server_ip, server_port)
+    
