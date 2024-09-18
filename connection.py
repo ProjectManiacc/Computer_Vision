@@ -1,4 +1,6 @@
+import json
 import socket
+from urllib import response
 
 def send_data_to_server(data, server_ip, server_port):
     try:
