@@ -9,13 +9,15 @@ def send_data_to_server(data, server_ip, server_port):
         client_socket.connect((server_ip, server_port))      
         json_data = json.dumps(data)  
         client_socket.sendall(json_data.encode('utf-8'))
-        print(f"Otrzymano odpowiedź: {response.decode('utf-8')}")
+        print(f"Wysłano dane: {json_data}")
 
     except Exception as e:
         print(f"Wystąpił błąd: {e}")
     
     finally:
         client_socket.close()
+        print(f"Zamknięto socket")
+
 
 def process_and_send_results(test_results: list[dict[str, Any]], server_ip, server_port):
     direction_map = {
@@ -25,7 +27,11 @@ def process_and_send_results(test_results: list[dict[str, Any]], server_ip, serv
     }
     for listOfDict in test_results:
         for key, value in listOfDict.items():
+            print(f"Odnaleziono obiekt: {key}")
+
             if key in direction_map:
                 direction = direction_map[key]
-                send_data_to_server({"direction": direction}, server_ip, server_port)        
+                data = {"direction": direction}
+                print(f"Przesyłane dane: {data}")
+                send_data_to_server(data, server_ip, server_port)        
 
