@@ -27,9 +27,9 @@ def process_and_send_results(test_results: list[dict[str, Any]], server_ip, serv
     }
     for listOfDict in test_results:
         for key, value in listOfDict.items():
-            print(f"Odnaleziono obiekt: {key}")
 
-            if key in direction_map:
+            if value['label'] in direction_map:
+                print(f"Odnaleziono obiekt: {value['label']}")
                 direction = direction_map[key]
                 data = {"direction": direction}
                 print(f"Przesyłane dane: {data}")
