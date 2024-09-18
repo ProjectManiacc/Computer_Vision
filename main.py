@@ -61,6 +61,19 @@ def test_model_on_multiple_images(images_dir: Path, output_dir: Path) -> list[di
 
     return detections
 
+def process_and_send_results(test_results, server_ip, server_port):
+    direction_map = {
+        'Left Arrow': "left", 
+        'Right Arrow': "right", 
+        'Up Arrow': "forward"
+    }
+    for detection in test_results:
+        direction = detection.get('direction')
+
+        if direction in ['Left Arrow', 'Right Arrow', 'Up Arrow']:
+            data_to_send = {'direction': direction_map[direction]}
+            send_data_to_server(data_to_send, server_ip, server_port)
+
 
 if __name__ == '__main__':
     # model_training = train_model(data_path)
@@ -76,6 +89,4 @@ if __name__ == '__main__':
 
     server_ip = '127.0.0.1'
     server_port = 65432
-    data_to_send = {direction: "left"}
-
-    send_data_to_server(data_to_send, server_ip, server_port)
+    process_and_send_results(test_results_single, server_ip, server_port)
