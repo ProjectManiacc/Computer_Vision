@@ -11,6 +11,9 @@ model = YOLO(model=model_path)
 
 def capture_and_process_frames(model: YOLO) -> None:
     cap = cv2.VideoCapture(0)
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1440)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 900)
+
     server_ip = '127.0.0.1'
     server_port = 65432
 
