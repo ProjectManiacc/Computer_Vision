@@ -6,6 +6,7 @@ from typing import List, Dict, Any
 import numpy as np
 from capture_camera import capture_and_process_frames
 from detection import process_detections
+from connection import send_data_to_server
 
 data_path = Path('dataset/data.yaml')
 curr_dir = Path.cwd()
@@ -61,14 +62,19 @@ def test_model_on_multiple_images(images_dir: Path, output_dir: Path) -> list[di
     return detections
 
 
+        
+
+
 if __name__ == '__main__':
     # model_training = train_model(data_path)
     # model_metrics = evaluate_model(data_path)
-    test_results_single = test_model_on_single_image(test_image_path, output_image_path)
-    print(test_results_single)
+    # test_results_single = test_model_on_single_image(test_image_path, output_image_path)
+    # print(test_results_single)
 
     # test_results = test_model_on_multiple_images(test_images_dir, output_images_dir)
     # for detection in test_results:
     #     print(detection)
 
     capture_and_process_frames(YOLO(model=Path(curr_dir, trained_model_path)))
+
+    
